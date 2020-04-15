@@ -1,4 +1,3 @@
-
 package br.com.alura.technews.ui.activity
 
 import android.content.Intent
