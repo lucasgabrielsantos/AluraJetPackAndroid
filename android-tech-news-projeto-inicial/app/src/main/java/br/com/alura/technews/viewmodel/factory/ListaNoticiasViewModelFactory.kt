@@ -1,4 +1,4 @@
-package br.com.alura.technews.viewmodel.Factory
+package br.com.alura.technews.viewmodel.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
