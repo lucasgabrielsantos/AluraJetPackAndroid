@@ -2,7 +2,6 @@ package br.com.alura.technews.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -68,20 +67,13 @@ class ListaNoticiasActivity : AppCompatActivity() {
     }
 
     private fun buscaNoticias() {
-        viewModel.buscaTodos().observe(this, Observer {resource ->
+        viewModel.buscaTodos().observe(this, Observer { resource ->
             resource.dado?.let { adapter.atualiza(it) }
-          resource.erro?.let {
-              mostraErro(MENSAGEM_FALHA_CARREGAR_NOTICIAS)
-          }
+            resource.erro?.let {
+                mostraErro(MENSAGEM_FALHA_CARREGAR_NOTICIAS)
+            }
         })
     }
-//    quandoSucesso = {
-//                Log.i("teste", "atualizando noticias")
-//                adapter.atualiza(it)
-//            }, quandoFalha = {
-//                mostraErro(MENSAGEM_FALHA_CARREGAR_NOTICIAS)
-//            }
-//        )
 
     private fun abreFormularioModoCriacao() {
         val intent = Intent(this, FormularioNoticiaActivity::class.java)
