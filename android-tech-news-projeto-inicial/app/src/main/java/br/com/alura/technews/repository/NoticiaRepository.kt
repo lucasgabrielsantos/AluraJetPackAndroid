@@ -16,7 +16,6 @@ class NoticiaRepository(
         quandoFalha: (erro: String?) -> Unit
     ) {
         buscaInterno(quandoSucesso)
-//        buscaNaApi(quandoSucesso, quandoFalha)
     }
 
     fun salva(
