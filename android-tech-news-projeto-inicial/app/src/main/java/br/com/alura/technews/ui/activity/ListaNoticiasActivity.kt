@@ -14,6 +14,7 @@ import br.com.alura.technews.model.Noticia
 import br.com.alura.technews.repository.NoticiaRepository
 import br.com.alura.technews.ui.adapter.ListaNoticiasAdapter
 import br.com.alura.technews.util.NOTICIA_ID_CHAVE
+import br.com.alura.technews.util.mostraErro
 import br.com.alura.technews.viewmodel.ListaNoticiasViewModel
 import br.com.alura.technews.viewmodel.factory.ListaNoticiasViewModelFactory
 import kotlinx.android.synthetic.main.activity_lista_noticias.*
@@ -67,10 +68,12 @@ class ListaNoticiasActivity : AppCompatActivity() {
     }
 
     private fun buscaNoticias() {
-        viewModel.buscaTodos().observe(this, Observer {
-            adapter.atualiza(it)
+        viewModel.buscaTodos().observe(this, Observer {resource ->
+            resource.dado?.let { adapter.atualiza(it) }
+          resource.erro?.let {
+              mostraErro(MENSAGEM_FALHA_CARREGAR_NOTICIAS)
+          }
         })
-//
     }
 //    quandoSucesso = {
 //                Log.i("teste", "atualizando noticias")
