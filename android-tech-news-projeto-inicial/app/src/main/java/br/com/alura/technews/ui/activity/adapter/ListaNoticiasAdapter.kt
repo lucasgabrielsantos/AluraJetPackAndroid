@@ -1,4 +1,4 @@
-package br.com.alura.technews.ui.recyclerview.adapter
+package br.com.alura.technews.ui.activity.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

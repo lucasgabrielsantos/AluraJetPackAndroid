@@ -8,7 +8,8 @@ import br.com.alura.technews.R
 import br.com.alura.technews.database.AppDatabase
 import br.com.alura.technews.model.Noticia
 import br.com.alura.technews.repository.NoticiaRepository
-import br.com.alura.technews.ui.activity.extensions.mostraErro
+import br.com.alura.technews.util.mostraErro
+import br.com.alura.technews.util.NOTICIA_ID_CHAVE
 import kotlinx.android.synthetic.main.activity_formulario_noticia.*
 
 private const val TITULO_APPBAR_EDICAO = "Editando notícia"
