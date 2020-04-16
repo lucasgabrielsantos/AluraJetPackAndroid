@@ -85,5 +85,4 @@ class ListaNoticiasActivity : AppCompatActivity() {
         intent.putExtra(NOTICIA_ID_CHAVE, it.id)
         startActivity(intent)
     }
-
 }
