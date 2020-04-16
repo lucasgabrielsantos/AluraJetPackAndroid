@@ -84,5 +84,4 @@ class VisualizaNoticiaActivity : AppCompatActivity() {
         intent.putExtra(NOTICIA_ID_CHAVE, noticiaId)
         startActivity(intent)
     }
-
 }
