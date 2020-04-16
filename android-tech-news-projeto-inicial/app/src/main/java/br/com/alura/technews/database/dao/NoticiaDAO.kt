@@ -25,5 +25,4 @@ interface NoticiaDAO {
 
     @Insert(onConflict = REPLACE)
     fun salva(noticias: List<Noticia>)
-
 }
