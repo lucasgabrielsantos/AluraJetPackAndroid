@@ -1,4 +1,4 @@
-package br.com.alura.technews.ui.viewmodel
+package br.com.alura.technews.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

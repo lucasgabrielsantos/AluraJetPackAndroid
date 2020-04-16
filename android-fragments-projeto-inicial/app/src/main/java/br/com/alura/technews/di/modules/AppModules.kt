@@ -5,9 +5,9 @@ import br.com.alura.technews.database.AppDatabase
 import br.com.alura.technews.database.dao.NoticiaDAO
 import br.com.alura.technews.repository.NoticiaRepository
 import br.com.alura.technews.retrofit.webclient.NoticiaWebClient
-import br.com.alura.technews.ui.viewmodel.FormularioNoticiaViewModel
-import br.com.alura.technews.ui.viewmodel.ListaNoticiasViewModel
-import br.com.alura.technews.ui.viewmodel.VisualizaNoticiaViewModel
+import br.com.alura.technews.viewmodel.FormularioNoticiaViewModel
+import br.com.alura.technews.viewmodel.ListaNoticiasViewModel
+import br.com.alura.technews.viewmodel.VisualizaNoticiaViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

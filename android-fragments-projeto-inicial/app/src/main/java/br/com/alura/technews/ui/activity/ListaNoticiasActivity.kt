@@ -8,9 +8,10 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
 import br.com.alura.technews.R
 import br.com.alura.technews.model.Noticia
-import br.com.alura.technews.ui.activity.extensions.mostraErro
+import br.com.alura.technews.ui.extensions.NOTICIA_ID_CHAVE
+import br.com.alura.technews.ui.extensions.mostraErro
 import br.com.alura.technews.ui.recyclerview.adapter.ListaNoticiasAdapter
-import br.com.alura.technews.ui.viewmodel.ListaNoticiasViewModel
+import br.com.alura.technews.viewmodel.ListaNoticiasViewModel
 import kotlinx.android.synthetic.main.activity_lista_noticias.*
 import org.koin.android.viewmodel.ext.android.viewModel
 

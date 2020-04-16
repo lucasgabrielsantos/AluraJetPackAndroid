@@ -8,8 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import br.com.alura.technews.R
 import br.com.alura.technews.model.Noticia
-import br.com.alura.technews.ui.activity.extensions.mostraErro
-import br.com.alura.technews.ui.viewmodel.VisualizaNoticiaViewModel
+import br.com.alura.technews.ui.extensions.NOTICIA_ID_CHAVE
+import br.com.alura.technews.ui.extensions.mostraErro
+import br.com.alura.technews.viewmodel.VisualizaNoticiaViewModel
 import kotlinx.android.synthetic.main.activity_visualiza_noticia.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
