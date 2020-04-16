@@ -23,7 +23,6 @@ abstract class AppDatabase : RoomDatabase() {
                 NOME_BANCO_DE_DADOS
             ).build()
         }
-
     }
 
 }
