@@ -23,13 +23,13 @@ private const val MENSAGEM_ERRO_SALVAR = "Não foi possível salvar notícia"
 
 class FormularioNoticiaActivity : AppCompatActivity() {
 
-    private val database: AppDatabase by inject()
+    private val repository: NoticiaRepository by inject()
+
     private val noticiaId: Long by lazy {
         intent.getLongExtra(NOTICIA_ID_CHAVE, 0)
     }
 
     private val viewModel: FormularioNoticiaViewModel by lazy {
-        val repository = NoticiaRepository(database.noticiaDAO)
         val factory = FormularioNoticiaViewModelFactory(repository)
         ViewModelProviders.of(this, factory).get(FormularioNoticiaViewModel::class.java)
     }

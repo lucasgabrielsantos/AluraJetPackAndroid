@@ -24,13 +24,13 @@ private const val MENSAGEM_FALHA_CARREGAR_NOTICIAS = "Não foi possível carrega
 
 class ListaNoticiasActivity : AppCompatActivity() {
 
-    private val database: AppDatabase by inject()
+    private val repository: NoticiaRepository by inject()
+
     private val adapter by lazy {
         ListaNoticiasAdapter(context = this)
     }
 
     private val viewModel by lazy {
-        val repository = NoticiaRepository(database.noticiaDAO)
         val factory = ListaNoticiasViewModelFactory(repository)
         val provedor = ViewModelProviders.of(this, factory)
         provedor.get(ListaNoticiasViewModel::class.java)

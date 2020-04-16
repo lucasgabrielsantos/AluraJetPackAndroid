@@ -10,6 +10,7 @@ import br.com.alura.technews.retrofit.webclient.NoticiaWebClient
 class NoticiaRepository(
     private val dao: NoticiaDAO,
     private val webclient: NoticiaWebClient = NoticiaWebClient()
+
 ) {
 
     private val noticiasEncontradas = MutableLiveData<Resource<List<Noticia>?>>()
