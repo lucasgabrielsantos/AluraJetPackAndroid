@@ -19,7 +19,8 @@ class VisualizaNoticiaViewModel(
         return noticiaEncontrada.value?.run {
             repository.remove(this)
         } ?: MutableLiveData<Resource<Void?>>().also {
-            it.value = Resource(dado = null, erro = "Notícia não encontrada")
+            it.value = Resource(null, "Notícia não encontrada")
         }
     }
+
 }
