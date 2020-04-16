@@ -1,10 +1,14 @@
-package br.com.alura.technews.di
+package br.com.alura.technews.di.modules
 
 import androidx.room.Room
 import br.com.alura.technews.database.AppDatabase
 import br.com.alura.technews.database.dao.NoticiaDAO
 import br.com.alura.technews.repository.NoticiaRepository
 import br.com.alura.technews.retrofit.webclient.NoticiaWebClient
+import br.com.alura.technews.viewmodel.FormularioNoticiaViewModel
+import br.com.alura.technews.viewmodel.ListaNoticiasViewModel
+import br.com.alura.technews.viewmodel.VisualizaNoticiaViewModel
+import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 private const val NOME_BANCO_DE_DADOS = "news.db"
@@ -26,5 +30,15 @@ val appModules = module {
     }
     single<NoticiaRepository> {
         NoticiaRepository(get(), get())
+    }
+
+    viewModel<ListaNoticiasViewModel> {
+        ListaNoticiasViewModel(get())
+    }
+    viewModel<VisualizaNoticiaViewModel> { (id: Long) ->
+        VisualizaNoticiaViewModel(id, get())
+    }
+    viewModel<FormularioNoticiaViewModel> {
+        FormularioNoticiaViewModel(get())
     }
 }

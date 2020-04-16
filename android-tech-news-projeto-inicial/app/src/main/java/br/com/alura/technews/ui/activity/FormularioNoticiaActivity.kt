@@ -16,6 +16,7 @@ import br.com.alura.technews.viewmodel.FormularioNoticiaViewModel
 import br.com.alura.technews.viewmodel.factory.FormularioNoticiaViewModelFactory
 import kotlinx.android.synthetic.main.activity_formulario_noticia.*
 import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
 
 private const val TITULO_APPBAR_EDICAO = "Editando notícia"
 private const val TITULO_APPBAR_CRIACAO = "Criando notícia"
@@ -23,15 +24,10 @@ private const val MENSAGEM_ERRO_SALVAR = "Não foi possível salvar notícia"
 
 class FormularioNoticiaActivity : AppCompatActivity() {
 
-    private val repository: NoticiaRepository by inject()
+    private val viewModel by viewModel<FormularioNoticiaViewModel>()
 
     private val noticiaId: Long by lazy {
         intent.getLongExtra(NOTICIA_ID_CHAVE, 0)
-    }
-
-    private val viewModel: FormularioNoticiaViewModel by lazy {
-        val factory = FormularioNoticiaViewModelFactory(repository)
-        ViewModelProviders.of(this, factory).get(FormularioNoticiaViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
