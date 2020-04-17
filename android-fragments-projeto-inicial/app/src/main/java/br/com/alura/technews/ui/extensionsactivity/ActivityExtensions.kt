@@ -1,4 +1,4 @@
-package br.com.alura.technews.ui.extensions
+package br.com.alura.technews.ui.extensionsactivity
 
 import android.app.Activity
 import android.widget.Toast

@@ -9,8 +9,9 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.alura.technews.R
-import br.com.alura.technews.ui.extensions.mostraErro
-import br.com.alura.technews.ui.recyclerview.adapter.ListaNoticiasAdapter
+import br.com.alura.technews.model.Noticia
+import br.com.alura.technews.ui.adapter.ListaNoticiasAdapter
+import br.com.alura.technews.ui.extensionsfragment.mostraErro
 import br.com.alura.technews.viewmodel.ListaNoticiasViewModel
 import kotlinx.android.synthetic.main.lista_noticias.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -26,6 +27,8 @@ class ListaNoticiasFragment : Fragment() {
     }
 
     private val viewModel: ListaNoticiasViewModel by viewModel()
+    var quandoFabSalvaNoticiaClicado: () -> Unit = {}
+    var quandoNoticiaSelecionada: (noticia: Noticia) -> Unit = {}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +55,7 @@ class ListaNoticiasFragment : Fragment() {
 
     private fun configuraFabAdicionaNoticia() {
         lista_noticias_fab_salva_noticia.setOnClickListener {
-            //   abreFormularioModoCriacao()
+            quandoFabSalvaNoticiaClicado()
         }
     }
 
@@ -64,7 +67,7 @@ class ListaNoticiasFragment : Fragment() {
     }
 
     private fun configuraAdapter() {
-        //  adapter.quandoItemClicado = this::abreVisualizadorNoticia
+        adapter.quandoItemClicado = quandoNoticiaSelecionada
     }
 
     private fun buscaNoticias() {
@@ -75,5 +78,4 @@ class ListaNoticiasFragment : Fragment() {
             }
         })
     }
-
 }

@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import br.com.alura.technews.R
 import br.com.alura.technews.model.Noticia
-import br.com.alura.technews.ui.extensions.NOTICIA_ID_CHAVE
-import br.com.alura.technews.ui.extensions.mostraErro
+import br.com.alura.technews.ui.extensionsactivity.NOTICIA_ID_CHAVE
+import br.com.alura.technews.ui.extensionsactivity.mostraErro
 import br.com.alura.technews.viewmodel.VisualizaNoticiaViewModel
 import kotlinx.android.synthetic.main.activity_visualiza_noticia.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -24,7 +24,7 @@ class VisualizaNoticiaActivity : AppCompatActivity() {
     private val noticiaId: Long by lazy {
         intent.getLongExtra(NOTICIA_ID_CHAVE, 0)
     }
-    private val viewModel:VisualizaNoticiaViewModel by viewModel { parametersOf(noticiaId)}
+    private val viewModel: VisualizaNoticiaViewModel by viewModel { parametersOf(noticiaId) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
