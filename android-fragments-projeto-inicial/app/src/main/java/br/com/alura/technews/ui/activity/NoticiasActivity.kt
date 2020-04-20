@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import br.com.alura.technews.R
 import br.com.alura.technews.model.Noticia
 import br.com.alura.technews.ui.extensionsactivity.NOTICIA_ID_CHAVE
@@ -18,13 +19,9 @@ class NoticiasActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_noticias)
         title = TITULO_APPBAR
-
-        val transacao = supportFragmentManager.beginTransaction()
-        transacao.add(
-            R.id.activity_noticias_container,
-            ListaNoticiasFragment()
-        )
-        transacao.commit()
+       transacaoFragment {
+           add(R.id.activity_noticias_container, ListaNoticiasFragment())
+       }
     }
 
     override fun onAttachFragment(fragment: Fragment?) {
@@ -43,6 +40,25 @@ class NoticiasActivity : AppCompatActivity() {
             fragment.quandoSelecionaMenuEdicao =
                 { noticiaSelecionada -> abreFormularioEdicao(noticiaSelecionada) }
         }
+        when (fragment) {
+            is ListaNoticiasFragment -> {
+                configuraListaNoticias(fragment)
+            }
+
+            is VisualizaNoticiaFragment -> {
+                ConfiguraVisualizaNoticia(fragment)
+            }
+        }
+    }
+
+    private fun ConfiguraVisualizaNoticia(fragment: VisualizaNoticiaFragment) {
+        fragment.quandoFinalizaTela = this::finish
+        fragment.quandoSelecionaMenuEdicao = this::abreFormularioEdicao
+    }
+
+    private fun configuraListaNoticias(fragment: ListaNoticiasFragment) {
+        fragment.quandoNoticiaSelecionada = this::abreVisualizadorNoticia
+        fragment.quandoFabSalvaNoticiaClicado = this::abreFormularioModoCriacao
     }
 
     private fun abreFormularioModoCriacao() {
@@ -52,13 +68,21 @@ class NoticiasActivity : AppCompatActivity() {
 
     private fun abreVisualizadorNoticia(noticia: Noticia) {
 
-        val transacao = supportFragmentManager.beginTransaction()
         val fragment = VisualizaNoticiaFragment()
         val dados = Bundle()
         dados.putLong(NOTICIA_ID_CHAVE, noticia.id)
         fragment.arguments = dados
 
-        transacao.replace(R.id.activity_noticias_container, fragment)
+        transacaoFragment {
+            replace(R.id.activity_noticias_container, fragment)
+
+        }
+
+    }
+
+    fun transacaoFragment(executa: FragmentTransaction.() -> Unit){
+        val transacao = supportFragmentManager.beginTransaction()
+        executa(transacao)
         transacao.commit()
     }
 
