@@ -4,10 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import br.com.alura.technews.R
 import br.com.alura.technews.model.Noticia
 import br.com.alura.technews.ui.extensionsactivity.NOTICIA_ID_CHAVE
+import br.com.alura.technews.ui.extensionsactivity.transacaoFragment
 import br.com.alura.technews.ui.fragment.ListaNoticiasFragment
 import br.com.alura.technews.ui.fragment.VisualizaNoticiaFragment
 
@@ -19,9 +19,9 @@ class NoticiasActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_noticias)
         title = TITULO_APPBAR
-       transacaoFragment {
-           add(R.id.activity_noticias_container, ListaNoticiasFragment())
-       }
+        transacaoFragment {
+            add(R.id.activity_noticias_container, ListaNoticiasFragment())
+        }
     }
 
     override fun onAttachFragment(fragment: Fragment?) {
@@ -78,12 +78,6 @@ class NoticiasActivity : AppCompatActivity() {
 
         }
 
-    }
-
-    fun transacaoFragment(executa: FragmentTransaction.() -> Unit){
-        val transacao = supportFragmentManager.beginTransaction()
-        executa(transacao)
-        transacao.commit()
     }
 
     private fun abreFormularioEdicao(noticia: Noticia) {
