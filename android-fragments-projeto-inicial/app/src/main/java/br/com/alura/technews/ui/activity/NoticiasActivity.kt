@@ -1,10 +1,10 @@
 package br.com.alura.technews.ui.activity
 
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import br.com.alura.technews.R
 import br.com.alura.technews.model.Noticia
 import br.com.alura.technews.ui.extensionsactivity.NOTICIA_ID_CHAVE
@@ -20,33 +20,43 @@ class NoticiasActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_noticias)
+
+        configuraFragmentPeloEstado(savedInstanceState)
+
+    }
+
+    private fun configuraFragmentPeloEstado(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
             abreListaNoticias()
         } else {
-            supportFragmentManager
-                .findFragmentByTag(TAG_FRAGMENT_VISUALIZA_NOTICIA)?.let { fragment ->
-                    val argumentos = fragment.arguments
-                    val novoFragment = VisualizaNoticiaFragment()
-                    novoFragment.arguments = argumentos
-
-                    transacaoFragment {
-                        remove(fragment)
-                    }
-                    supportFragmentManager.popBackStack()
-
-                    transacaoFragment {
-                        val container =
-                            if (activity_noticias_container_secundario != null) {
-                                R.id.activity_noticias_container_secundario
-                            } else {
-                                addToBackStack(null)
-                                R.id.activity_noticias_container_primario
-                            }
-
-                        replace(container, novoFragment, TAG_FRAGMENT_VISUALIZA_NOTICIA)
-                    }
-                }
+            tentaReabrirFragmentVisualizaNoticia()
         }
+    }
+
+    private fun tentaReabrirFragmentVisualizaNoticia() {
+        supportFragmentManager
+            .findFragmentByTag(TAG_FRAGMENT_VISUALIZA_NOTICIA)?.let { fragment ->
+                val argumentos = fragment.arguments
+                val novoFragment = VisualizaNoticiaFragment()
+                novoFragment.arguments = argumentos
+
+                removeFragmentVisualizaNoticia(fragment)
+
+                transacaoFragment {
+                    val container = configuraContainerFragmentVisualizaNoticia()
+
+                    replace(container, novoFragment, TAG_FRAGMENT_VISUALIZA_NOTICIA)
+                }
+            }
+    }
+
+    private fun FragmentTransaction.configuraContainerFragmentVisualizaNoticia(): Int {
+        if (activity_noticias_container_secundario != null) {
+            return R.id.activity_noticias_container_secundario
+        }
+        addToBackStack(null)
+        return R.id.activity_noticias_container_primario
+
     }
 
     private fun abreListaNoticias() {
@@ -77,14 +87,26 @@ class NoticiasActivity : AppCompatActivity() {
             }
 
             is VisualizaNoticiaFragment -> {
-                ConfiguraVisualizaNoticia(fragment)
+                configuraVisualizaNoticia(fragment)
             }
         }
     }
 
-    private fun ConfiguraVisualizaNoticia(fragment: VisualizaNoticiaFragment) {
-        fragment.quandoFinalizaTela = this::finish
+    private fun configuraVisualizaNoticia(fragment: VisualizaNoticiaFragment) {
+        fragment.quandoFinalizaTela = {
+            supportFragmentManager
+                .findFragmentByTag(TAG_FRAGMENT_VISUALIZA_NOTICIA)?.let { fragment ->
+                    removeFragmentVisualizaNoticia(fragment)
+                }
+        }
         fragment.quandoSelecionaMenuEdicao = this::abreFormularioEdicao
+    }
+
+    private fun removeFragmentVisualizaNoticia(fragment: Fragment) {
+        transacaoFragment {
+            remove(fragment)
+        }
+        supportFragmentManager.popBackStack()
     }
 
     private fun configuraListaNoticias(fragment: ListaNoticiasFragment) {
@@ -105,13 +127,7 @@ class NoticiasActivity : AppCompatActivity() {
         fragment.arguments = dados
 
         transacaoFragment {
-            val container =
-                if (activity_noticias_container_secundario != null) {
-                    R.id.activity_noticias_container_secundario
-                } else {
-                    addToBackStack(null)
-                    R.id.activity_noticias_container_primario
-                }
+            val container = configuraContainerFragmentVisualizaNoticia()
 
             replace(container, fragment, TAG_FRAGMENT_VISUALIZA_NOTICIA)
         }
