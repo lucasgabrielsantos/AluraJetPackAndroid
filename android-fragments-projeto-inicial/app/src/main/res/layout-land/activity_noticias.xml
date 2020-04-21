@@ -15,7 +15,7 @@
 
 
     <FrameLayout
-        android:id="@+id/activity_notivias_container_secundario"
+        android:id="@+id/activity_noticias_container_secundario"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
