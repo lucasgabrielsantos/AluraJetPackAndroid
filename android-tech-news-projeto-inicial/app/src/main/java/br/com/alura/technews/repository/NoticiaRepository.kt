@@ -102,7 +102,7 @@ class NoticiaRepository(
     private fun buscaInterno(): LiveData<List<Noticia>> {
         return dao.buscaTodos()
     }
-    
+
     private fun salvaNaApi(noticia: Noticia) {
         val scope = CoroutineScope(IO)
         scope.launch {
