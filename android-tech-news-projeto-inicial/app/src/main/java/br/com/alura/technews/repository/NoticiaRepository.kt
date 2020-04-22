@@ -7,6 +7,11 @@ import br.com.alura.technews.asynctask.BaseAsyncTask
 import br.com.alura.technews.database.dao.NoticiaDAO
 import br.com.alura.technews.model.Noticia
 import br.com.alura.technews.retrofit.webclient.NoticiaWebClient
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class NoticiaRepository(
     private val dao: NoticiaDAO,
@@ -45,11 +50,10 @@ class NoticiaRepository(
         noticia: Noticia
     ): LiveData<Resource<Void?>> {
         val liveData = MutableLiveData<Resource<Void?>>()
-        salvaNaApi(noticia, quandoSucesso = {
-            liveData.value = Resource(null)
-        }, quandoFalha = { erro ->
-            liveData.value = Resource(dado = null, erro = erro)
-        })
+
+        salvaNaApi(noticia)
+        liveData.value = Resource(dado = null)
+
         return liveData
     }
 
@@ -100,6 +104,15 @@ class NoticiaRepository(
     }
 
 
+    private fun salvaNaApi(noticia: Noticia) {
+        val scope = CoroutineScope(IO)
+        scope.launch {
+            webclient.salva(noticia)?.let { noticiaSalva ->
+                dao.salva(noticiaSalva)
+            }
+        }
+    }
+
     private fun salvaNaApi(
         noticia: Noticia,
         quandoSucesso: () -> Unit,
@@ -129,12 +142,14 @@ class NoticiaRepository(
         noticia: Noticia,
         quandoSucesso: () -> Unit
     ) {
-        BaseAsyncTask(quandoExecuta = {
-            dao.salva(noticia)
-        }, quandoFinaliza = {
-            quandoSucesso()
-        }).execute()
 
+        val scope = CoroutineScope(Dispatchers.IO)
+        scope.launch {
+            dao.salva(noticia)
+            withContext(Dispatchers.Main) {
+                quandoSucesso()
+            }
+        }
     }
 
     private fun removeNaApi(
