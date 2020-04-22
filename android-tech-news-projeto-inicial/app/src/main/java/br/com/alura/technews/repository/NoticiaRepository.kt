@@ -142,7 +142,7 @@ class NoticiaRepository(
         quandoSucesso: () -> Unit
     ) {
 
-        val scope = CoroutineScope(Dispatchers.IO)
+        val scope = CoroutineScope(IO)
         scope.launch {
             dao.salva(noticia)
             withContext(Dispatchers.Main) {
