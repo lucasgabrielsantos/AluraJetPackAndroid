@@ -9,11 +9,20 @@
         android:id="@+id/listaProdutos"
         android:name="br.com.alura.aluraesporte.ui.fragment.ListaProdutosFragment"
         android:label="Lista de Produtos"
-        tools:layout="@layout/lista_produtos"/>
+        tools:layout="@layout/lista_produtos" />
 
 
-    <fragment android:id="@+id/detalhesProduto"
-        android:label="Detalhes do Produto"
+    <fragment
+        android:id="@+id/detalhesProduto"
         android:name="br.com.alura.aluraesporte.ui.fragment.DetalhesProdutoFragment"
-        tools:layout="@layout/detalhes_produto"/>
+        android:label="Detalhes do Produto"
+        tools:layout="@layout/detalhes_produto" />
+
+    <fragment
+        android:id="@+id/pagamento"
+        android:name="br.com.alura.aluraesporte.ui.fragment.PagamentoFragment"
+        android:label="Pagamento"
+        tools:layout="@layout/pagamento" />
+
+
 </navigation>
